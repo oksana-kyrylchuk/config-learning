@@ -1,3 +1,4 @@
+const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
@@ -17,7 +18,7 @@ module.exports = (env = {}) => {
     const getPlugins = () => {
         const plugins = [
             new HtmlWebpackPlugin({
-                template: 'src/index.html'
+                template: './src/index.html'
             }),
         ];
 
@@ -31,18 +32,27 @@ module.exports = (env = {}) => {
     };
 
     return {
+        entry: './src/index.tsx',
+        devtool: 'inline-source-map',
         mode: isProd ? "production" : "development",
         output: {
-            filename: isProd ? 'main-[hash:8].js' : 'bundle.js'
+            filename: isProd ? 'main-[hash:8].js' : 'bundle.js',
+            path: path.resolve(__dirname, 'dist'),
+            // publicPath: 'dist'
         },
         module: {
             rules: [
                 {
-                    test: /\.js$/,
+                    test: /\.js|jsx$/,
 
                     //add exclude
                     exclude: /node_modules/,
                     loader: 'babel-loader'
+                },
+                {
+                    test: /\.tsx?$/,
+                    use: 'ts-loader',
+                    exclude: /node_modules/,
                 },
                 {
                     test: /\.(le|c)ss$/,
@@ -75,6 +85,13 @@ module.exports = (env = {}) => {
             ]
         },
         plugins: getPlugins(),
+        resolve: {
+            extensions: [ '.tsx', '.ts', '.js', '.jsx' ],
+            alias: {
+                'components': path.resolve(__dirname, 'src/components'),
+                'pages': path.resolve(__dirname, 'src/pages'),
+            }
+        },
         devServer: {
             open: true,
         }

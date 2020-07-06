@@ -1,5 +1,44 @@
-@color: green;
+@background-main: green;
+@background-second: yellowgreen;
+
+html {
+    font-family: sans-serif;
+}
 
 body {
-    background-color: @color;
+    margin: 0;
+    background-color: @background-main;
+    user-select: none;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 25%;
+    left: calc(50% - 100px);
+    height: 150px;
+    width: 200px;
+    background-color: @background-second;
+    border-radius: 10px;
+
+    .greeting {
+        padding: 7px;
+        background-color: cadetblue;
+        border-radius: 20px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: 600;
+        font-size: 24px;
+    }
+
+    .button {
+        border: 1px solid cadetblue;
+        margin-top: 30px;
+        padding: 7px;
+        font-weight: 500;
+    }
 }
