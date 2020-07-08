@@ -5,7 +5,7 @@ import { Greeting } from '../components/greeting';
 //React.FC = React.FunctionComponent
 export const Main: React.FC = (): JSX.Element => {
     const handleClick = () => {
-        console.log('05')
+        console.log('07')
     }
 
     return (
